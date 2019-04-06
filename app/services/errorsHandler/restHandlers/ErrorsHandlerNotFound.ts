@@ -12,27 +12,27 @@ import { ErrorsHandlerNotFound as ErrorsHandlerDefaultNotFound } from '@services
 
 @provide(typesServices.ErrorsHandlerNotFound)
 export class ErrorsHandlerNotFound implements IRESTErrorHandler {
-    private readonly errorsHandlerDefaultNotFound: ErrorsHandlerDefaultNotFound;
-    private readonly errorsHandlerDtoFactory: ErrorsHandlerDtoFactory;
-    private readonly systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver;
+  private readonly errorsHandlerDefaultNotFound: ErrorsHandlerDefaultNotFound;
+  private readonly errorsHandlerDtoFactory: ErrorsHandlerDtoFactory;
+  private readonly systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver;
 
-    constructor(
-        @inject(typesServices.ErrorsHandlerDefaultNotFound) errorsHandlerDefaultNotFound: ErrorsHandlerDefaultNotFound,
-        @inject(typesServices.ErrorsHandlerDtoFactory) errorsHandlerDtoFactory: ErrorsHandlerDtoFactory,
-        @inject(typesServices.SystemErrorStatusCodeResolver) systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver
-    ) {
-        this.errorsHandlerDefaultNotFound = errorsHandlerDefaultNotFound;
-        this.errorsHandlerDtoFactory = errorsHandlerDtoFactory;
-        this.systemErrorStatusCodeResolver = systemErrorStatusCodeResolver;
-    }
+  constructor(
+    @inject(typesServices.ErrorsHandlerDefaultNotFound) errorsHandlerDefaultNotFound: ErrorsHandlerDefaultNotFound,
+    @inject(typesServices.ErrorsHandlerDtoFactory) errorsHandlerDtoFactory: ErrorsHandlerDtoFactory,
+    @inject(typesServices.SystemErrorStatusCodeResolver) systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver
+  ) {
+    this.errorsHandlerDefaultNotFound = errorsHandlerDefaultNotFound;
+    this.errorsHandlerDtoFactory = errorsHandlerDtoFactory;
+    this.systemErrorStatusCodeResolver = systemErrorStatusCodeResolver;
+  }
 
-    public async handle(err: Error, res: Response): Promise<void> {
-        await this.errorsHandlerDefaultNotFound.handle(err);
+  public async handle(err: Error, res: Response): Promise<void> {
+    await this.errorsHandlerDefaultNotFound.handle(err);
 
-        const dto = this.errorsHandlerDtoFactory.create(err, SystemErrors.ROUTE_NOT_FOUND, 'Not found');
+    const dto = this.errorsHandlerDtoFactory.create(err, SystemErrors.ROUTE_NOT_FOUND, 'Not found');
 
-        res.status(this.systemErrorStatusCodeResolver.resolve(SystemErrors.ROUTE_NOT_FOUND));
-        res.setHeader('Content-Type', 'application/json');
-        res.send(stringify(dto.normalize()));
-    }
+    res.status(this.systemErrorStatusCodeResolver.resolve(SystemErrors.ROUTE_NOT_FOUND));
+    res.setHeader('Content-Type', 'application/json');
+    res.send(stringify(dto.normalize()));
+  }
 }

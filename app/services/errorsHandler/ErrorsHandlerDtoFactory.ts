@@ -9,29 +9,29 @@ import { SystemErrors } from '@services/systemError/SystemError';
 
 @provide(typesServices.ErrorsHandlerDtoFactory)
 export class ErrorsHandlerDtoFactory {
-    private readonly nodeEnv: AppEnvironment;
+  private readonly nodeEnv: AppEnvironment;
 
-    constructor(
-        @inject(typesConstants.NodeEnv) nodeEnv: AppEnvironment
-    ) {
-        this.nodeEnv = nodeEnv;
+  constructor(
+    @inject(typesConstants.NodeEnv) nodeEnv: AppEnvironment
+  ) {
+    this.nodeEnv = nodeEnv;
+  }
+
+  create(err: any, code: SystemErrors, message: string = '', data: object = {}) {
+    const dto = new Error();
+
+    dto
+      .setCode(code)
+      .setError(err)
+    ;
+
+    if (this.nodeEnv === AppEnvironment.DEVELOPMENT) {
+      dto
+        .setData(data)
+        .setMessage(message)
+      ;
     }
 
-    create(err: any, code: SystemErrors, message: string = '', data: object = {}) {
-        const dto = new Error();
-
-        dto
-            .setCode(code)
-            .setError(err)
-        ;
-
-        if (this.nodeEnv === AppEnvironment.DEVELOPMENT) {
-            dto
-                .setData(data)
-                .setMessage(message)
-            ;
-        }
-
-        return dto;
-    }
+    return dto;
+  }
 }

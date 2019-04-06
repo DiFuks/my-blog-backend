@@ -5,13 +5,13 @@ import { typesServices } from '@di/typesServices';
 
 @provide(typesServices.SessionIdService)
 export class SessionIdService {
-    private readonly id: string;
+  private readonly id: string;
 
-    constructor() {
-        this.id = Guid.create().toString();
-    }
+  constructor() {
+    this.id = Guid.create().toString();
+  }
 
-    public getId(): string {
-        return this.id;
-    }
+  public getId(): string {
+    return this.id;
+  }
 }

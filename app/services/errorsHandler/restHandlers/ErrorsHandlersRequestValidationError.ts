@@ -13,31 +13,31 @@ import { SystemErrors } from '@services/systemError/SystemError';
 
 @provide(typesServices.ErrorsHandlersRequestValidationError)
 export class ErrorsHandlersRequestValidationError implements IRESTErrorHandler {
-    private readonly errorsHandlerDtoFactory: ErrorsHandlerDtoFactory;
-    private readonly loggerService: LoggerService;
-    private readonly systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver;
+  private readonly errorsHandlerDtoFactory: ErrorsHandlerDtoFactory;
+  private readonly loggerService: LoggerService;
+  private readonly systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver;
 
-    constructor(
-        @inject(typesServices.ErrorsHandlerDtoFactory) errorsHandlerDtoFactory: ErrorsHandlerDtoFactory,
-        @inject(typesServices.LoggerService) loggerService: LoggerService,
-        @inject(typesServices.SystemErrorStatusCodeResolver) systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver
-    ) {
-        this.errorsHandlerDtoFactory = errorsHandlerDtoFactory;
-        this.loggerService = loggerService;
-        this.systemErrorStatusCodeResolver = systemErrorStatusCodeResolver;
-    }
+  constructor(
+    @inject(typesServices.ErrorsHandlerDtoFactory) errorsHandlerDtoFactory: ErrorsHandlerDtoFactory,
+    @inject(typesServices.LoggerService) loggerService: LoggerService,
+    @inject(typesServices.SystemErrorStatusCodeResolver) systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver
+  ) {
+    this.errorsHandlerDtoFactory = errorsHandlerDtoFactory;
+    this.loggerService = loggerService;
+    this.systemErrorStatusCodeResolver = systemErrorStatusCodeResolver;
+  }
 
-    public handle(err: Array<ValidationError>, res: Response): void {
-        const dto = this.errorsHandlerDtoFactory.create(err, SystemErrors.REST_VALIDATION_ERROR, 'Validation error');
+  public handle(err: Array<ValidationError>, res: Response): void {
+    const dto = this.errorsHandlerDtoFactory.create(err, SystemErrors.REST_VALIDATION_ERROR, 'Validation error');
 
-        this.loggerService.notice('Validation error', {
-            extra: {
-                validationErrors: stringify(err)
-            }
-        });
+    this.loggerService.notice('Validation error', {
+      extra: {
+        validationErrors: stringify(err)
+      }
+    });
 
-        res.status(this.systemErrorStatusCodeResolver.resolve(SystemErrors.REST_VALIDATION_ERROR));
-        res.setHeader('Content-Type', 'application/json');
-        res.send(stringify(dto.normalize()));
-    }
+    res.status(this.systemErrorStatusCodeResolver.resolve(SystemErrors.REST_VALIDATION_ERROR));
+    res.setHeader('Content-Type', 'application/json');
+    res.send(stringify(dto.normalize()));
+  }
 }

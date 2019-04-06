@@ -12,8 +12,10 @@ export const typesServices = {
     ErrorsHandlerNotFound: Symbol.for('ErrorsHandlerNotFound'),
     ErrorsHandlersRequestValidationError: Symbol.for('ErrorsHandlersRequestValidationError'),
     ErrorsHandlerDefaultNotFound: Symbol.for('ErrorsHandlerDefaultNotFound'),
-    ErrorsHandlerDefaultUnhandledRemoteError:  Symbol.for('ErrorsHandlerDefaultUnhandledRemoteError'),
-    ErrorsHandlerUnhandledRemoteError: Symbol.for('ErrorsHandlerUnhandledRemoteError'),
     ErrorsHandlerDefaultSystemError: Symbol.for('ErrorsHandlerDefaultSystemError'),
     ErrorsHandlerSystemError: Symbol.for('ErrorsHandlerSystemError'),
+
+    PostInfoDtoFactory: Symbol.for('PostInfoDtoFactory'),
+    PostDetailDtoFactory: Symbol.for('PostDetailDtoFactory'),
+    PostService: Symbol.for('PostService'),
 };

@@ -7,12 +7,14 @@ import { typesServices } from '@di/typesServices';
 
 @provideSingletonScope(typesServices.SystemErrorStatusCodeResolver)
 export class SystemErrorStatusCodeResolver {
-    private readonly mapping = {
-        [SystemErrors.ROUTE_NOT_FOUND]: httpStatusCodes.NOT_FOUND,
-        default: httpStatusCodes.INTERNAL_SERVER_ERROR
-    };
+  private readonly mapping = {
+    [SystemErrors.ROUTE_NOT_FOUND]: httpStatusCodes.NOT_FOUND,
+    [SystemErrors.REST_VALIDATION_ERROR]: httpStatusCodes.UNPROCESSABLE_ENTITY,
+    [SystemErrors.POST_NOT_FOUND]: httpStatusCodes.NOT_FOUND,
+    default: httpStatusCodes.INTERNAL_SERVER_ERROR
+  };
 
-    resolve(systemErrorCode): number {
-        return has(this.mapping, systemErrorCode) ? this.mapping[systemErrorCode] : this.mapping.default;
-    }
+  resolve(systemErrorCode): number {
+    return has(this.mapping, systemErrorCode) ? this.mapping[systemErrorCode] : this.mapping.default;
+  }
 }

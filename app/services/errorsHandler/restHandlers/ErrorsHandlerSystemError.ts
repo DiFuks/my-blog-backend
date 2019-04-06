@@ -10,35 +10,35 @@ import { Response } from 'express';
 
 @provide(typesServices.ErrorsHandlerSystemError)
 export class SystemError {
-    private readonly defaultSystemErrorHandler: DefaultSystemErrorHandler;
-    private readonly systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver;
-    private readonly errorsHandlerDtoFactory: ErrorsHandlerDtoFactory;
+  private readonly defaultSystemErrorHandler: DefaultSystemErrorHandler;
+  private readonly systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver;
+  private readonly errorsHandlerDtoFactory: ErrorsHandlerDtoFactory;
 
-    constructor(
-        @inject(typesServices.ErrorsHandlerDefaultSystemError) defaultSystemErrorHandler: DefaultSystemErrorHandler,
-        @inject(typesServices.SystemErrorStatusCodeResolver) systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver,
-        @inject(typesServices.ErrorsHandlerDtoFactory) errorsHandlerDtoFactory: ErrorsHandlerDtoFactory,
-    ) {
-        this.defaultSystemErrorHandler = defaultSystemErrorHandler;
-        this.systemErrorStatusCodeResolver = systemErrorStatusCodeResolver;
-        this.errorsHandlerDtoFactory = errorsHandlerDtoFactory;
-    }
+  constructor(
+    @inject(typesServices.ErrorsHandlerDefaultSystemError) defaultSystemErrorHandler: DefaultSystemErrorHandler,
+    @inject(typesServices.SystemErrorStatusCodeResolver) systemErrorStatusCodeResolver: SystemErrorStatusCodeResolver,
+    @inject(typesServices.ErrorsHandlerDtoFactory) errorsHandlerDtoFactory: ErrorsHandlerDtoFactory,
+  ) {
+    this.defaultSystemErrorHandler = defaultSystemErrorHandler;
+    this.systemErrorStatusCodeResolver = systemErrorStatusCodeResolver;
+    this.errorsHandlerDtoFactory = errorsHandlerDtoFactory;
+  }
 
-    /**
-     * @param {SystemError} err
-     * @param {Response} res
-     */
-    async handle(err: SystemErr, res: Response): Promise<void> {
-        await this.defaultSystemErrorHandler.handle(err);
+  /**
+   * @param {SystemError} err
+   * @param {Response} res
+   */
+  async handle(err: SystemErr, res: Response): Promise<void> {
+    await this.defaultSystemErrorHandler.handle(err);
 
-        res.status(this.systemErrorStatusCodeResolver.resolve(err.getSystemCode()));
-        res.json(
-            this.errorsHandlerDtoFactory.create(
-                err,
-                err.getSystemCode(),
-                err.getMessage(),
-                err.getSystemAdditionalData()
-            ).normalize()
-        );
-    }
+    res.status(this.systemErrorStatusCodeResolver.resolve(err.getSystemCode()));
+    res.json(
+      this.errorsHandlerDtoFactory.create(
+        err,
+        err.getSystemCode(),
+        err.getMessage(),
+        err.getSystemAdditionalData()
+      ).normalize()
+    );
+  }
 }
