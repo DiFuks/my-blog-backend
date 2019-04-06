@@ -1,0 +1,6 @@
+{
+  "watch": ["app"],
+  "ext": "ts",
+  "ignore": ["app/**/*.spec.ts"],
+  "exec": "node --inspect=localhost:5555 --require ts-node/register --require tsconfig-paths/register app/app.ts"
+}
