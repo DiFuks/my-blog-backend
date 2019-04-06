@@ -1,3 +1,5 @@
 /.idea
 /node_modules
 .env
+/app/var
+/docker-data

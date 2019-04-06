@@ -15,7 +15,9 @@
       "@services/*": ["services/*"],
       "@dto/*": ["dto/*"],
       "@entities/*": ["entities/*"],
-      "@enum/*": ["enum/*"]
+      "@enum/*": ["enum/*"],
+      "@logger/*": ["logger/*"],
+      "@middlewares/*": ["middlewares/*"]
     }
   },
   "exclude": [
