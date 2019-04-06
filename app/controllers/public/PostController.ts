@@ -10,7 +10,7 @@ export const enum InitRoutes {
 @controller(InitRoutes.ROOT)
 class PostController extends BaseHttpController{
     @httpGet('/:id', typesMiddlewares.RequestLogger)
-    public async init(
+    public async get(
       @requestParam() id
     ) {
         return this.json({
