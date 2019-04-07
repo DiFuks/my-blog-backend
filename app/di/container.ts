@@ -20,6 +20,9 @@ export const createContainer = (connection: Connection): Container => {
     container.bind<winston.Logger>(typesConstants.WinstonLogger).toConstantValue(winstonLogger);
     container.bind<Connection>(typesConstants.DBConnection).toConstantValue(connection);
 
+    container.bind<string>(typesConstants.RedisHost).toConstantValue(process.env.REDIS_HOST);
+    container.bind<string>(typesConstants.RedisPort).toConstantValue(process.env.REDIS_PORT);
+
     container.load(buildProviderModule());
 
     return container;

@@ -1,6 +1,7 @@
 export const typesServices = {
     LoggerService: Symbol.for('LoggerService'),
     SessionIdService: Symbol.for('SessionIdService'),
+    RedisCache: Symbol.for('RedisCache'),
 
     SystemErrorFactory: Symbol.for('SystemErrorFactory'),
     SystemErrorStatusCodeResolver: Symbol.for('SystemErrorStatusCodeResolver'),
@@ -18,4 +19,6 @@ export const typesServices = {
     PostInfoDtoFactory: Symbol.for('PostInfoDtoFactory'),
     PostDetailDtoFactory: Symbol.for('PostDetailDtoFactory'),
     PostService: Symbol.for('PostService'),
+
+
 };

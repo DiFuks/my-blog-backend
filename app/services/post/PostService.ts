@@ -10,6 +10,7 @@ import { PostDetailDtoFactory } from '@services/post/PostDetailDtoFactory';
 import { PostDetail } from '@dto/reponse/PostDetail';
 import { SystemErrorFactory } from '@services/systemError/SystemErrorFactory';
 import { SystemErrors } from '@services/systemError/SystemError';
+import { RedisCache } from '@services/cache/RedisCache';
 
 @provide(typesServices.PostService)
 export class PostService {
@@ -22,25 +23,42 @@ export class PostService {
   @inject(typesServices.SystemErrorFactory)
   private readonly systemErrorFactory: SystemErrorFactory;
 
-  public async getList(): Promise<Array<PostInfo>> {
-    const postRepository = getRepository(Post);
+  @inject(typesServices.RedisCache)
+  private readonly redisCache: RedisCache;
 
-    const posts = await postRepository.find();
+  public getList(): Promise<Array<PostInfo>> {
+    const cacheKey = 'post-list';
 
-    return posts.map<PostInfo>(post => this.postInfoDtoFactory.createFromEntity(post));
+    return this.redisCache.resolve<Array<PostInfo>>(cacheKey, async () => {
+      const postRepository = getRepository(Post);
+
+      const posts = await postRepository.find();
+
+      return posts.map<PostInfo>(post => this.postInfoDtoFactory.createFromEntity(post));
+    })
   }
 
   public async getByUrl(url: string): Promise<PostDetail> {
-    const postRepository = getRepository(Post);
+    const cacheKey = `post-detail-${url}`;
 
-    const post = await postRepository.findOne({
-      url: url,
+    const post = await this.redisCache.resolve<PostDetail|null>(cacheKey, async () => {
+      const postRepository = getRepository(Post);
+
+      const post = await postRepository.findOne({
+        url: url,
+      });
+
+      if (!post) {
+        return null;
+      }
+
+      return this.postDetailDtoFactory.createFromEntity(post);
     });
 
     if (!post) {
       throw this.systemErrorFactory.create(SystemErrors.POST_NOT_FOUND);
     }
 
-    return this.postDetailDtoFactory.createFromEntity(post);
+    return post;
   }
 }
