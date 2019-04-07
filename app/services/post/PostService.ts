@@ -61,4 +61,10 @@ export class PostService {
 
     return post;
   }
+
+  public getAll(): Promise<Array<Post>> {
+    const postRepository = getRepository(Post);
+
+    return postRepository.find();
+  }
 }
