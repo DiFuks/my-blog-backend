@@ -1,5 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
+import { PostTypes } from '@enum/PostTypes';
+
+export type PostContent = Array<{
+  'type' : PostTypes
+  'content': string
+}>;
+
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn('uuid')
@@ -18,9 +25,9 @@ export class Post {
   menuTitle: string;
 
   @Column({
-    type: 'text',
+    type: 'json',
   })
-  content: string;
+  content: PostContent;
 
   @Column({
     type: 'varchar',
