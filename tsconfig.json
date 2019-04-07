@@ -17,7 +17,9 @@
       "@entities/*": ["entities/*"],
       "@enum/*": ["enum/*"],
       "@logger/*": ["logger/*"],
-      "@middlewares/*": ["middlewares/*"]
+      "@middlewares/*": ["middlewares/*"],
+      "@passport/*": ["passport/*"],
+      "@repository/*": ["repository/*"]
     }
   },
   "exclude": [

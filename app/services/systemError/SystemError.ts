@@ -3,6 +3,8 @@ import { CustomError } from 'ts-custom-error';
 export const enum SystemErrors {
   REST_VALIDATION_ERROR = 200,
   POST_NOT_FOUND = 300,
+  USER_NOT_FOUND = 400,
+  USER_PASSWORD_NOT_MATCH = 401,
   OTHER = 1000,
   ROUTE_NOT_FOUND = 1001,
 }

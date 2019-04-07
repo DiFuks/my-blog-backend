@@ -8,15 +8,17 @@ import * as cors from 'cors';
 
 import { typesServices } from '@di/typesServices';
 import { ErrorsHandlerService } from '@services/errorsHandler/ErrorsHandlerService';
+import { passport } from '@passport/passport';
 
-export const initializeApplicationMiddlewares = (app: Application, container: Container) => {
+export const initializeApplicationMiddlewares = (app: Application) => {
     app.use(bodyParser.json());
     app.use(express.json());
     app.use(cors({
-        origin: [process.env.BLOG_URL],
+        origin: [process.env.BLOG_URL, process.env.ADMIN_URL],
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
         credentials: true
     }));
+    app.use(passport.initialize())
 };
 
 export const initializeApplicationErrorMiddlewares = (app: Application, container: Container) => {

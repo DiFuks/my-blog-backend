@@ -11,6 +11,8 @@ export class SystemErrorStatusCodeResolver {
     [SystemErrors.ROUTE_NOT_FOUND]: httpStatusCodes.NOT_FOUND,
     [SystemErrors.REST_VALIDATION_ERROR]: httpStatusCodes.UNPROCESSABLE_ENTITY,
     [SystemErrors.POST_NOT_FOUND]: httpStatusCodes.NOT_FOUND,
+    [SystemErrors.USER_NOT_FOUND]: httpStatusCodes.NOT_FOUND,
+    [SystemErrors.USER_PASSWORD_NOT_MATCH]: httpStatusCodes.BAD_REQUEST,
     default: httpStatusCodes.INTERNAL_SERVER_ERROR
   };
 

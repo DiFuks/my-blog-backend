@@ -12,18 +12,19 @@ import '@middlewares/index';
 import '@services/index';
 
 export const createContainer = (connection: Connection): Container => {
-    const container = new Container({ defaultScope: 'Request' });
+  const container = new Container({defaultScope: 'Request'});
 
-    container.bind<AppEnvironment>(typesConstants.NodeEnv).toConstantValue(process.env.NODE_ENV as AppEnvironment);
+  container.bind<AppEnvironment>(typesConstants.NodeEnv).toConstantValue(process.env.NODE_ENV as AppEnvironment);
 
-    container.bind<string>(typesConstants.BasePath).toConstantValue('/api');
-    container.bind<winston.Logger>(typesConstants.WinstonLogger).toConstantValue(winstonLogger);
-    container.bind<Connection>(typesConstants.DBConnection).toConstantValue(connection);
+  container.bind<string>(typesConstants.BasePath).toConstantValue('/api');
+  container.bind<winston.Logger>(typesConstants.WinstonLogger).toConstantValue(winstonLogger);
+  container.bind<Connection>(typesConstants.DBConnection).toConstantValue(connection);
+  container.bind<string>(typesConstants.JwtSecretKey).toConstantValue(process.env.JWT_SECRET_KEY);
 
-    container.bind<string>(typesConstants.RedisHost).toConstantValue(process.env.REDIS_HOST);
-    container.bind<string>(typesConstants.RedisPort).toConstantValue(process.env.REDIS_PORT);
+  container.bind<string>(typesConstants.RedisHost).toConstantValue(process.env.REDIS_HOST);
+  container.bind<string>(typesConstants.RedisPort).toConstantValue(process.env.REDIS_PORT);
 
-    container.load(buildProviderModule());
+  container.load(buildProviderModule());
 
-    return container;
+  return container;
 };

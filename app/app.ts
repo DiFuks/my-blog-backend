@@ -19,7 +19,7 @@ import { initializeApplicationErrorMiddlewares, initializeApplicationMiddlewares
 
   const server = new InversifyExpressServer(container, null, { rootPath: basePath });
 
-  server.setConfig((app: Application) => initializeApplicationMiddlewares(app, container));
+  server.setConfig((app: Application) => initializeApplicationMiddlewares(app));
   server.setErrorConfig((app: Application) => initializeApplicationErrorMiddlewares(app, container));
 
   const app = server.build();

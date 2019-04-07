@@ -1,3 +1,3 @@
 export const typesMiddlewares = {
-    RequestLogger: Symbol.for('RequestLogger')
+  RequestLogger: Symbol.for('RequestLogger')
 };
