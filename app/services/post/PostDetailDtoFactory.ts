@@ -10,6 +10,7 @@ export class PostDetailDtoFactory {
 
     postDetailDto.content = post.content;
     postDetailDto.title = post.title;
+    postDetailDto.id = post.id;
 
     return postDetailDto;
   }
