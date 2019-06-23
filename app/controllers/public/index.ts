@@ -1,1 +1,2 @@
 import './PostController';
+import './ChatController';

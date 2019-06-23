@@ -6,3 +6,4 @@ import './post';
 import './login';
 import './encryption';
 import './mqMessage';
+import './responseLogger';

@@ -24,6 +24,8 @@ export const createContainer = (connection: Connection): Container => {
   container.bind<string>(typesConstants.RedisHost).toConstantValue(process.env.REDIS_HOST);
   container.bind<string>(typesConstants.RedisPort).toConstantValue(process.env.REDIS_PORT);
 
+  container.bind<string>(typesConstants.BotUrl).toConstantValue(process.env.BOT_URL);
+
   container.load(buildProviderModule());
 
   return container;

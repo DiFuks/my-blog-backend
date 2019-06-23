@@ -20,7 +20,8 @@
       "@middlewares/*": ["middlewares/*"],
       "@passport/*": ["passport/*"],
       "@repository/*": ["repository/*"],
-      "@rabbitmq/*": ["rabbitmq/*"]
+      "@rabbitmq/*": ["rabbitmq/*"],
+      "@rest/*": ["rest/*"]
     }
   },
   "exclude": [

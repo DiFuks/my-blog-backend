@@ -16,6 +16,9 @@ export const typesServices = {
   ErrorsHandlerDefaultSystemError: Symbol.for('ErrorsHandlerDefaultSystemError'),
   ErrorsHandlerSystemError: Symbol.for('ErrorsHandlerSystemError'),
   ErrorsHandlerMqpService: Symbol.for('ErrorsHandlerMqpService'),
+  ErrorsHandlerUnhandledRemoteError: Symbol.for('ErrorsHandlerUnhandledRemoteError'),
+  ErrorsHandlerDefaultUnhandledRemoteError: Symbol.for('ErrorsHandlerDefaultUnhandledRemoteError'),
+
 
   PostInfoDtoFactory: Symbol.for('PostInfoDtoFactory'),
   PostDetailDtoFactory: Symbol.for('PostDetailDtoFactory'),
@@ -31,4 +34,8 @@ export const typesServices = {
 
   MqMessageProcessor: Symbol.for('MqMessageProcessor'),
   MqMessageBotRequestCallbackProcessor: Symbol.for('MqMessageBotRequestCallbackProcessor'),
+
+  ChatSenderService:  Symbol.for('ChatSenderService'),
+
+  AxiosResponseLogger:  Symbol.for('AxiosResponseLogger'),
 };
