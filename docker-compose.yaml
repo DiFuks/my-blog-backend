@@ -15,6 +15,7 @@ services:
       - blog-redis
     command: node --require ts-node/register --require tsconfig-paths/register ./app/app.ts
     restart: always
+
   blog-postgres:
     container_name: blog-postgres
     build: ./docker/postgres
@@ -28,10 +29,7 @@ services:
     environment:
       PGDATA: /var/lib/postgresql/data/
     restart: always
-    ulimits:
-      nofile:
-        soft: 65535
-        hard: 65535
+
   blog-redis:
     container_name: blog-redis
     image: redis:5.0-alpine
@@ -42,6 +40,13 @@ services:
       nofile:
         soft: 65535
         hard: 65535
+
+  blog-rabbitmq:
+    container_name: blog-rabbitmq
+    build: ./docker/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
 
 networks:
   default:
