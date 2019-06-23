@@ -4,6 +4,7 @@ export $(shell sed 's/=.*//' .env)
 postgresContainerName = blog-postgres
 redisContainerName = blog-redis
 nodejsContainerName = blog-nodejs
+rabbitContainerName = blog-rabbitmq
 
 prod-server:
 	docker-compose up -d
@@ -12,7 +13,7 @@ prod-yarn-install:
 prod-schema-sync:
 	docker-compose run ${nodejsContainerName} yarn typeorm schema:sync
 dev-server:
-	docker-compose up -d ${postgresContainerName} ${redisContainerName}
+	docker-compose up -d ${postgresContainerName} ${redisContainerName} ${rabbitContainerName}
 	yarn nodemon
 postgres-cli:
 	docker-compose exec ${postgresContainerName} psql -d ${DB_NAME} -U ${DB_USER}

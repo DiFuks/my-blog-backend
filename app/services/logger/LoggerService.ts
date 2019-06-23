@@ -11,6 +11,7 @@ import { typesConstants } from '@di/typesConstants';
 
 export const enum LoggerChannelEnum {
     APPLICATION = 'APP',
+    MQP = 'mqp'
 }
 
 export const enum LoggerLevelEnum {

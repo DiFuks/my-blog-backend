@@ -10,12 +10,15 @@ dotenv.config();
 import { createContainer } from '@di/container';
 import { typesConstants } from '@di/typesConstants';
 import { initializeApplicationErrorMiddlewares, initializeApplicationMiddlewares } from '@middlewares/initializeApplication';
+import { init as rabbitMQInit } from '@rabbitmq/index';
 
 (async () => {
   const connection = await createConnection();
   const container = createContainer(connection);
 
   const basePath = container.get<string>(typesConstants.BasePath);
+
+  rabbitMQInit(container);
 
   const server = new InversifyExpressServer(container, null, { rootPath: basePath });
 

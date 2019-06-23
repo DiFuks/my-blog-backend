@@ -19,7 +19,8 @@
       "@logger/*": ["logger/*"],
       "@middlewares/*": ["middlewares/*"],
       "@passport/*": ["passport/*"],
-      "@repository/*": ["repository/*"]
+      "@repository/*": ["repository/*"],
+      "@rabbitmq/*": ["rabbitmq/*"]
     }
   },
   "exclude": [

@@ -15,6 +15,7 @@ export const typesServices = {
   ErrorsHandlerDefaultNotFound: Symbol.for('ErrorsHandlerDefaultNotFound'),
   ErrorsHandlerDefaultSystemError: Symbol.for('ErrorsHandlerDefaultSystemError'),
   ErrorsHandlerSystemError: Symbol.for('ErrorsHandlerSystemError'),
+  ErrorsHandlerMqpService: Symbol.for('ErrorsHandlerMqpService'),
 
   PostInfoDtoFactory: Symbol.for('PostInfoDtoFactory'),
   PostDetailDtoFactory: Symbol.for('PostDetailDtoFactory'),
@@ -27,4 +28,7 @@ export const typesServices = {
   JwtSignerService: Symbol.for('JwtSignerService'),
   JwtDTOFactory: Symbol.for('JwtDTOFactory'),
   JwtPayloadFactory: Symbol.for('JwtPayloadFactory'),
+
+  MqMessageProcessor: Symbol.for('MqMessageProcessor'),
+  MqMessageBotRequestCallbackProcessor: Symbol.for('MqMessageBotRequestCallbackProcessor'),
 };
