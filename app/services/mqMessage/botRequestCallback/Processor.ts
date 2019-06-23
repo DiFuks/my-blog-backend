@@ -17,10 +17,10 @@ export class Processor implements IProcessor {
     }
 
     async process(data: Dto): Promise<void> {
-        console.log(data);
+        console.log(data); // Todo send message by socketio
 
         await Promise.all([
-            this.loggerService.info('Found user by the provided application ID', {
+            this.loggerService.info('Get message from telegram bot', {
                 extra: data
             }),
         ]);
