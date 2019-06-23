@@ -1,5 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
+import { ChatMessageTypes } from '@enum/ChatMessageTypes';
+
+export interface IMessage {
+    type: ChatMessageTypes;
+
+    date: Date;
+
+    text: string;
+}
+
 @Entity()
 export class ChatMessages {
     @PrimaryGeneratedColumn('uuid')
@@ -8,7 +18,7 @@ export class ChatMessages {
     @Column({
         type: 'json',
     })
-    messages = [];
+    messages: Array<IMessage> = [];
 
     @Column({
         type: 'varchar',

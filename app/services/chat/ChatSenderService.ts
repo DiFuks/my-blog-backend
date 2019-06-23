@@ -1,12 +1,13 @@
 import { provide } from 'inversify-binding-decorators';
 import { getRepository } from 'typeorm';
+import { inject } from 'inversify';
 
 import { typesServices } from '@di/typesServices';
 import { IChatRequest } from '@dto/request/IChatRequest';
 import { ChatMessages } from '@entities/ChatMessages';
 import { RestWorker } from '@rest/bot/RestWorker';
-import { inject } from 'inversify';
 import { typesREST } from '@di/typesREST';
+import { ChatMessageTypes } from '@enum/ChatMessageTypes';
 
 @provide(typesServices.ChatSenderService)
 export class ChatSenderService {
@@ -23,7 +24,11 @@ export class ChatSenderService {
 
         const chatMessages = await chatRepository.findOne(chatRequest.id) || new ChatMessages();
 
-        chatMessages.messages.push(chatRequest.message);
+        chatMessages.messages.push({
+            text: chatRequest.message,
+            date: new Date(),
+            type: ChatMessageTypes.USER,
+        });
         chatMessages.id = chatRequest.id;
         chatMessages.name = chatRequest.name;
 
@@ -39,7 +44,11 @@ export class ChatSenderService {
 
         const chatMessages = await chatRepository.findOne(id);
 
-        chatMessages.messages.push(message);
+        chatMessages.messages.push({
+            text: message,
+            date: new Date(),
+            type: ChatMessageTypes.ME,
+        });
 
         await chatRepository.save(chatMessages);
     }
