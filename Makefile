@@ -3,7 +3,14 @@ export $(shell sed 's/=.*//' .env)
 
 postgresContainerName = blog-postgres
 redisContainerName = blog-redis
+nodejsContainerName = blog-nodejs
 
+prod-server:
+	docker-compose up
+prod-yarn-install:
+	docker-compose run ${nodejsContainerName} yarn install
+prod-schema-sync:
+	docker-compose run ${nodejsContainerName} yarn typeorm schema:sync
 dev-server:
 	docker-compose up -d ${postgresContainerName} ${redisContainerName}
 	yarn nodemon
