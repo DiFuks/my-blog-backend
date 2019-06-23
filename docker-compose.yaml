@@ -4,7 +4,7 @@ services:
   blog-nodejs:
     container_name: blog-nodejs
     build: ./docker/nodejs
-    image: manimani-gateway-nodejs
+    image: blog-nodejs
     volumes:
       - .:/app
     ports:
