@@ -6,7 +6,7 @@ redisContainerName = blog-redis
 nodejsContainerName = blog-nodejs
 
 prod-server:
-	docker-compose up
+	docker-compose up -d
 prod-yarn-install:
 	docker-compose run ${nodejsContainerName} yarn install
 prod-schema-sync:
