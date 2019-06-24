@@ -17,6 +17,7 @@
     "@types/passport": "^1.0.0",
     "@types/passport-jwt": "^3.0.1",
     "@types/stacktrace-js": "^0.0.32",
+    "@types/uuid": "^3.4.4",
     "amqp-connection-manager": "^2.3.2",
     "amqplib": "^0.5.3",
     "argon2": "^0.21.0",
@@ -45,6 +46,7 @@
     "typeorm": "^0.2.16",
     "typeorm-naming-strategies": "^1.0.2",
     "typescript": "^3.4.2",
+    "uuid": "^3.3.2",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^3.8.0"
   }

@@ -7,7 +7,7 @@ export interface IMessage {
 
     date: Date;
 
-    text: string;
+    message: string;
 }
 
 @Entity()
@@ -19,11 +19,6 @@ export class ChatMessages {
         type: 'json',
     })
     messages: Array<IMessage> = [];
-
-    @Column({
-        type: 'varchar',
-    })
-    name: string;
 
     @CreateDateColumn({
         type: 'time with time zone',
