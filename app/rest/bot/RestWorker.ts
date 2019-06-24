@@ -21,6 +21,6 @@ export class RestWorker {
     }
 
     public send(chatRequest: IChatRequest): Promise<AxiosResponse> {
-        return this.botAxiosInstance.post<{}>(Endpoints.SEND, chatRequest);
+        return this.botAxiosInstance.post(Endpoints.SEND, chatRequest);
     }
 }

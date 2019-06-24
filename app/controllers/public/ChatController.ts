@@ -11,7 +11,7 @@ export const enum ChatRoutes {
     ROOT = '/public/bot',
     SEND = '/send',
     GET_ID = '/getId',
-    GET_MESSAGES = '/getMessages',
+    GET_MESSAGES = '/getMessages/:id',
 }
 
 @controller(ChatRoutes.ROOT)
