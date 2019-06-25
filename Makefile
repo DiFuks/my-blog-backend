@@ -8,12 +8,17 @@ rabbitContainerName = blog-rabbitmq
 
 prod-server:
 	docker-compose up -d
+prod-server-build:
+	docker-compose up -d --build
 prod-yarn-install:
 	docker-compose run ${nodejsContainerName} yarn install
 prod-schema-sync:
 	docker-compose run ${nodejsContainerName} yarn typeorm schema:sync
 dev-server:
 	docker-compose up -d ${postgresContainerName} ${redisContainerName} ${rabbitContainerName}
+	yarn nodemon
+dev-server-build:
+	docker-compose up --build -d ${postgresContainerName} ${redisContainerName} ${rabbitContainerName}
 	yarn nodemon
 postgres-cli:
 	docker-compose exec ${postgresContainerName} psql -d ${DB_NAME} -U ${DB_USER}
