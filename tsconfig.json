@@ -21,7 +21,8 @@
       "@passport/*": ["passport/*"],
       "@repository/*": ["repository/*"],
       "@rabbitmq/*": ["rabbitmq/*"],
-      "@rest/*": ["rest/*"]
+      "@rest/*": ["rest/*"],
+      "@io/*": ["io/*"]
     }
   },
   "exclude": [

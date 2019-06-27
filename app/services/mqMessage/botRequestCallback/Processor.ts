@@ -9,24 +9,24 @@ import { ChatSenderService } from '@services/chat/ChatSenderService';
 
 @provide(typesServices.MqMessageBotRequestCallbackProcessor)
 export class Processor implements IProcessor {
-    private readonly loggerService: LoggerService;
+  private readonly loggerService: LoggerService;
 
-    private readonly chatSenderService: ChatSenderService;
+  private readonly chatSenderService: ChatSenderService;
 
-    constructor(
-        @inject(typesServices.LoggerService) loggerService: LoggerService,
-        @inject(typesServices.ChatSenderService) chatSenderService: ChatSenderService,
-    ) {
-        this.loggerService = loggerService;
-        this.chatSenderService = chatSenderService;
-    }
+  constructor(
+    @inject(typesServices.LoggerService) loggerService: LoggerService,
+    @inject(typesServices.ChatSenderService) chatSenderService: ChatSenderService,
+  ) {
+    this.loggerService = loggerService;
+    this.chatSenderService = chatSenderService;
+  }
 
-    async process(data: Dto): Promise<void> {
-        await Promise.all([
-            this.chatSenderService.sendToSocket(data.ID, data.Message),
-            this.loggerService.info('Get message from telegram bot', {
-                extra: data
-            }),
-        ]);
-    }
+  async process(data: Dto): Promise<void> {
+    await Promise.all([
+      this.chatSenderService.sendToSocket(data.ID, data.Message),
+      this.loggerService.info('Get message from telegram bot', {
+        extra: data
+      }),
+    ]);
+  }
 }

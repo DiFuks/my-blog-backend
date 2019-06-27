@@ -7,17 +7,17 @@ import { BaseDto } from '@services/mqMessage/BaseDto';
 
 @provide(typesServices.MqMessageProcessor)
 export class Processor {
-    private readonly dataProcessorResolver: DataProcessorResolver;
+  private readonly dataProcessorResolver: DataProcessorResolver;
 
-    constructor(
-        @inject(typesServices.MqMessageDataProcessorResolver) dataProcessorResolver: DataProcessorResolver
-    ) {
-        this.dataProcessorResolver = dataProcessorResolver;
-    }
+  constructor(
+    @inject(typesServices.MqMessageDataProcessorResolver) dataProcessorResolver: DataProcessorResolver
+  ) {
+    this.dataProcessorResolver = dataProcessorResolver;
+  }
 
-    async process(data: BaseDto): Promise<void> {
-        const processor = this.dataProcessorResolver.resolve(data.Type);
+  async process(data: BaseDto): Promise<void> {
+    const processor = this.dataProcessorResolver.resolve(data.Type);
 
-        await processor.process(data.Data);
-    }
+    await processor.process(data.Data);
+  }
 }

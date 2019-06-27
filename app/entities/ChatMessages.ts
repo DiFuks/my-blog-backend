@@ -1,32 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 import { ChatMessageTypes } from '@enum/ChatMessageTypes';
+import { SocketConnections } from '@entities/SocketConnections';
 
 export interface IMessage {
-    type: ChatMessageTypes;
+  type: ChatMessageTypes;
 
-    date: Date;
+  date: Date;
 
-    message: string;
+  message: string;
 }
 
 @Entity()
 export class ChatMessages {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column({
-        type: 'json',
-    })
-    messages: Array<IMessage> = [];
+  @Column({
+    type: 'json',
+  })
+  messages: Array<IMessage> = [];
 
-    @CreateDateColumn({
-        type: 'time with time zone',
-    })
-    createdAt: Date;
+  @OneToMany(() => SocketConnections, socketConnection => socketConnection.chat)
+  socketConnections: Promise<Array<SocketConnections>>;
 
-    @UpdateDateColumn({
-        type: 'time with time zone',
-    })
-    updatedAt: Date;
+  @CreateDateColumn({
+    type: 'time with time zone',
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'time with time zone',
+  })
+  updatedAt: Date;
 }

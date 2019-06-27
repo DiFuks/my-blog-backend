@@ -2,6 +2,7 @@ import { CustomError } from 'ts-custom-error';
 
 export const enum SystemErrors {
   MQ_MESSAGE_UNKNOWN_TYPE = 30,
+  SOCKET_CONNECTIONS_DO_NOT_EXIST = 150,
   REST_VALIDATION_ERROR = 200,
   POST_NOT_FOUND = 300,
   USER_NOT_FOUND = 400,

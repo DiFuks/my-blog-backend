@@ -10,32 +10,32 @@ import { SystemErrors } from '@services/systemError/SystemError';
 
 @provide(typesServices.MqMessageDataProcessorResolver)
 export class DataProcessorResolver {
-    private readonly systemErrorFactory: SystemErrorFactory;
-    private readonly mapping: {[key in RabbitTypes]: IProcessor};
+  private readonly systemErrorFactory: SystemErrorFactory;
+  private readonly mapping: { [key in RabbitTypes]: IProcessor };
 
-    constructor(
-        @inject(typesServices.SystemErrorFactory) systemErrorFactory: SystemErrorFactory,
-        @inject(typesServices.MqMessageBotRequestCallbackProcessor) botRequestCallbackProcessor: BotRequestCallbackProcessor
-    ) {
-        this.systemErrorFactory = systemErrorFactory;
+  constructor(
+    @inject(typesServices.SystemErrorFactory) systemErrorFactory: SystemErrorFactory,
+    @inject(typesServices.MqMessageBotRequestCallbackProcessor) botRequestCallbackProcessor: BotRequestCallbackProcessor
+  ) {
+    this.systemErrorFactory = systemErrorFactory;
 
-        this.mapping = {
-            [RabbitTypes.BOT_RESPONSE]: botRequestCallbackProcessor,
-        }
+    this.mapping = {
+      [RabbitTypes.BOT_RESPONSE]: botRequestCallbackProcessor,
+    }
+  }
+
+  resolve(type: RabbitTypes): IProcessor {
+    if (this.mapping[type]) {
+      return this.mapping[type];
     }
 
-    resolve(type: RabbitTypes): IProcessor {
-        if (this.mapping[type]) {
-            return this.mapping[type];
-        }
-
-        throw this.systemErrorFactory.create(
-            SystemErrors.MQ_MESSAGE_UNKNOWN_TYPE,
-            'Cannot resolve mq message processor: unknown message type has come',
-            {
-                type: type
-            }
-        );
-    }
+    throw this.systemErrorFactory.create(
+      SystemErrors.MQ_MESSAGE_UNKNOWN_TYPE,
+      'Cannot resolve mq message processor: unknown message type has come',
+      {
+        type: type
+      }
+    );
+  }
 
 }

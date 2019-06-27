@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { PostTypes } from '@enum/PostTypes';
 
 export type PostContent = Array<{
-  'type' : PostTypes
+  'type': PostTypes
   'content': string
 }>;
 

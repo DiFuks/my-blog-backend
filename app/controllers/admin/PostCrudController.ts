@@ -12,7 +12,7 @@ export const enum PostRoutes {
   LIST = '/list',
 }
 
-@controller(PostRoutes.ROOT, passport.authenticate([AuthTypes.JWT],{ session: false }))
+@controller(PostRoutes.ROOT, passport.authenticate([AuthTypes.JWT], {session: false}))
 class PostCrudController extends BaseHttpController {
   @inject(typesServices.PostService)
   private readonly postService: PostService;

@@ -1,4 +1,4 @@
 export const enum ChatMessageTypes {
-    ME = 'me',
-    USER = 'user',
+  ME = 'me',
+  USER = 'user',
 }

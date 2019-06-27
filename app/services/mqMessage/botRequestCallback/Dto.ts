@@ -1,5 +1,5 @@
 export interface Dto {
-    ID: string;
+  ID: string;
 
-    Message: string;
+  Message: string;
 }

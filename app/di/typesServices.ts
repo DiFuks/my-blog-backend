@@ -36,8 +36,12 @@ export const typesServices = {
   MqMessageDataProcessorResolver: Symbol.for('MqMessageDataProcessorResolver'),
   MqMessageBotRequestCallbackProcessor: Symbol.for('MqMessageBotRequestCallbackProcessor'),
 
-  ChatSenderService:  Symbol.for('ChatSenderService'),
-  ChatService:  Symbol.for('ChatService'),
+  ChatSenderService: Symbol.for('ChatSenderService'),
+  ChatService: Symbol.for('ChatService'),
 
-  AxiosResponseLogger:  Symbol.for('AxiosResponseLogger'),
+  AxiosResponseLogger: Symbol.for('AxiosResponseLogger'),
+
+
+  SocketUserConnectionManager: Symbol.for('SocketUserConnectionManager'),
+  SocketMessageSender: Symbol.for('SocketMessageSender'),
 };

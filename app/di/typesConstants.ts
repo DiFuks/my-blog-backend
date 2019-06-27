@@ -7,4 +7,5 @@ export const typesConstants = {
   RedisPort: Symbol.for('RedisPort'),
   JwtSecretKey: Symbol.for('JwtSecretKey'),
   BotUrl: Symbol.for('BotUrl'),
+  Socket: Symbol.for('Socket'),
 };

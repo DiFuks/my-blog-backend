@@ -10,17 +10,17 @@ import { AxiosResponseLogger } from '@services/responseLogger/AxiosResponseLogge
 
 @provide(typesREST.BotAxiosInstance)
 export class AxiosInstance extends AxiosInstanceProxy {
-    constructor(
-        @inject(typesConstants.BotUrl) botURL: string,
-        @inject(typesServices.AxiosResponseLogger) axiosResponseLogger: AxiosResponseLogger
-    ) {
-        const axiosInstance = axios.create({
-            baseURL: botURL,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+  constructor(
+    @inject(typesConstants.BotUrl) botURL: string,
+    @inject(typesServices.AxiosResponseLogger) axiosResponseLogger: AxiosResponseLogger
+  ) {
+    const axiosInstance = axios.create({
+      baseURL: botURL,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-        super(axiosInstance, axiosResponseLogger)
-    }
+    super(axiosInstance, axiosResponseLogger)
+  }
 }

@@ -41,7 +41,7 @@ export class PostService {
   public async getByUrl(url: string): Promise<PostDetail> {
     const cacheKey = `post-detail-${url}`;
 
-    const post = await this.redisCache.resolve<PostDetail|null>(cacheKey, async () => {
+    const post = await this.redisCache.resolve<PostDetail | null>(cacheKey, async () => {
       const postRepository = getRepository(Post);
 
       const post = await postRepository.findOne({

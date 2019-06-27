@@ -8,17 +8,17 @@ import { ChatMessages, IMessage } from '@entities/ChatMessages';
 
 @provide(typesServices.ChatService)
 export class ChatService {
-    public async getMessagesById(id: string): Promise<Array<IMessage>> {
-        const chatRepository = getRepository(ChatMessages);
+  public async getMessagesById(id: string): Promise<Array<IMessage>> {
+    const chatRepository = getRepository(ChatMessages);
 
-        const chatMessages = await chatRepository.findOne(id);
+    const chatMessages = await chatRepository.findOne(id);
 
-        return chatMessages ? chatMessages.messages : [];
-    }
+    return chatMessages ? chatMessages.messages : [];
+  }
 
-    public generateId(): IChatId {
-        return {
-            id: uuid(),
-        };
-    }
+  public generateId(): IChatId {
+    return {
+      id: uuid(),
+    };
+  }
 }

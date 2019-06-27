@@ -1,3 +1,3 @@
 export const enum AuthTypes {
-    JWT = 'jwt',
+  JWT = 'jwt',
 }

@@ -1,4 +1,4 @@
 export const enum AppEnvironment {
-    PRODUCTION = 'production',
-    DEVELOPMENT = 'development'
+  PRODUCTION = 'production',
+  DEVELOPMENT = 'development'
 }

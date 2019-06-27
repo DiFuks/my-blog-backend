@@ -9,30 +9,30 @@ import { SessionIdService } from '@services/session/SessionIdService';
 
 @provide(typesServices.AxiosResponseLogger)
 export class AxiosResponseLogger {
-    private sessionIdService: SessionIdService;
+  private sessionIdService: SessionIdService;
 
-    constructor(
-        @inject(typesServices.SessionIdService) sessionIdService: SessionIdService
-    ) {
-        this.sessionIdService = sessionIdService;
-    }
+  constructor(
+    @inject(typesServices.SessionIdService) sessionIdService: SessionIdService
+  ) {
+    this.sessionIdService = sessionIdService;
+  }
 
-    public saveAxiosResponse(axiosResponse: any): Promise<RequestStatistics> {
-        const requestStatistic = new RequestStatistics();
+  public saveAxiosResponse(axiosResponse: any): Promise<RequestStatistics> {
+    const requestStatistic = new RequestStatistics();
 
-        axiosResponse = axiosResponse as AxiosResponse;
+    axiosResponse = axiosResponse as AxiosResponse;
 
-        requestStatistic.sessionId = this.sessionIdService.getId();
-        requestStatistic.url = axiosResponse.config.url;
-        requestStatistic.requestBody = axiosResponse.config.data;
-        requestStatistic.requestHeaders = axiosResponse.config.headers;
-        requestStatistic.requestMethod = axiosResponse.config.method;
-        requestStatistic.responseBody = axiosResponse.data;
-        requestStatistic.responseCode = axiosResponse.status;
-        requestStatistic.responseHeaders = axiosResponse.headers;
+    requestStatistic.sessionId = this.sessionIdService.getId();
+    requestStatistic.url = axiosResponse.config.url;
+    requestStatistic.requestBody = axiosResponse.config.data;
+    requestStatistic.requestHeaders = axiosResponse.config.headers;
+    requestStatistic.requestMethod = axiosResponse.config.method;
+    requestStatistic.responseBody = axiosResponse.data;
+    requestStatistic.responseCode = axiosResponse.status;
+    requestStatistic.responseHeaders = axiosResponse.headers;
 
-        const requestRequestStatistics = getRepository(RequestStatistics);
+    const requestRequestStatistics = getRepository(RequestStatistics);
 
-        return requestRequestStatistics.save(requestStatistic);
-    }
+    return requestRequestStatistics.save(requestStatistic);
+  }
 }

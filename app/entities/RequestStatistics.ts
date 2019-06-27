@@ -2,59 +2,59 @@ import { Entity, PrimaryGeneratedColumn, Column, Generated, CreateDateColumn, Up
 
 @Entity()
 export class RequestStatistics {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column('uuid', {
-        nullable: true
-    })
-    @Generated('uuid')
-    sessionId: string;
+  @Column('uuid', {
+    nullable: true
+  })
+  @Generated('uuid')
+  sessionId: string;
 
-    @Column('text', {
-        nullable: true
-    })
-    url: string;
+  @Column('text', {
+    nullable: true
+  })
+  url: string;
 
-    @Column('text', {
-        nullable: true
-    })
-    requestBody: string;
+  @Column('text', {
+    nullable: true
+  })
+  requestBody: string;
 
-    @Column('json', {
-        nullable: true
-    })
-    requestHeaders: object;
+  @Column('json', {
+    nullable: true
+  })
+  requestHeaders: object;
 
-    @Column({
-        type: 'varchar',
-        default: 'get',
-        nullable: true
-    })
-    requestMethod: string;
+  @Column({
+    type: 'varchar',
+    default: 'get',
+    nullable: true
+  })
+  requestMethod: string;
 
-    @Column('json', {
-        nullable: true
-    })
-    responseBody: object;
+  @Column('json', {
+    nullable: true
+  })
+  responseBody: object;
 
-    @Column('smallint', {
-        nullable: true
-    })
-    responseCode: number;
+  @Column('smallint', {
+    nullable: true
+  })
+  responseCode: number;
 
-    @Column('json', {
-        nullable: true
-    })
-    responseHeaders: object;
+  @Column('json', {
+    nullable: true
+  })
+  responseHeaders: object;
 
-    @CreateDateColumn({
-        type: 'timestamp with time zone'
-    })
-    createdAt: Date;
+  @CreateDateColumn({
+    type: 'timestamp with time zone'
+  })
+  createdAt: Date;
 
-    @UpdateDateColumn({
-        type: 'timestamp with time zone'
-    })
-    updatedAt: Date;
+  @UpdateDateColumn({
+    type: 'timestamp with time zone'
+  })
+  updatedAt: Date;
 }

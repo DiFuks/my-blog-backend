@@ -1,7 +1,7 @@
 import { RabbitTypes } from '@enum/RabbitTypes';
 
 export class BaseDto {
-    Type: RabbitTypes;
+  Type: RabbitTypes;
 
-    Data: any;
+  Data: any;
 }

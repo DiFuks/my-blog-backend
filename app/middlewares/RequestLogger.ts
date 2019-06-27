@@ -9,76 +9,76 @@ import { typesMiddlewares } from '@di/typesMiddlewares';
 
 @provide(typesMiddlewares.RequestLogger)
 export class RequestLogger extends BaseMiddleware {
-    private loggerService: LoggerService;
+  private loggerService: LoggerService;
 
-    constructor(
-        @inject(typesServices.LoggerService) loggerService: LoggerService
-    ) {
-        super();
+  constructor(
+    @inject(typesServices.LoggerService) loggerService: LoggerService
+  ) {
+    super();
 
-        this.loggerService = loggerService;
-    }
+    this.loggerService = loggerService;
+  }
 
-    handler(req: Request, res: Response, next: NextFunction): void {
-        this.loggerService.info('New request has come', {
-            extra: {
-                request: {
-                    ip: req.ip,
-                    url: req.url,
-                    headers: req.headers,
-                    method: req.method,
-                    query: req.query,
-                    body: req.body
-                }
-            }
-        });
+  handler(req: Request, res: Response, next: NextFunction): void {
+    this.loggerService.info('New request has come', {
+      extra: {
+        request: {
+          ip: req.ip,
+          url: req.url,
+          headers: req.headers,
+          method: req.method,
+          query: req.query,
+          body: req.body
+        }
+      }
+    });
 
-        const
-            oldWrite = res.write,
-            oldEnd = res.end,
-            chunks = []
-        ;
+    const
+      oldWrite = res.write,
+      oldEnd = res.end,
+      chunks = []
+    ;
 
-        res.write = function (chunk): boolean {
-            chunks.push(chunk);
+    res.write = function (chunk): boolean {
+      chunks.push(chunk);
 
-            return oldWrite.apply(res, arguments);
-        };
+      return oldWrite.apply(res, arguments);
+    };
 
-        res.end = function (chunk) {
-            if (chunk) {
-                chunks.push(chunk);
-            }
+    res.end = function (chunk) {
+      if (chunk) {
+        chunks.push(chunk);
+      }
 
-            oldEnd.apply(res, arguments);
-        };
+      oldEnd.apply(res, arguments);
+    };
 
-        res.on('finish', () => {
-            const body = Buffer.concat(chunks).toString();
+    res.on('finish', () => {
+      const body = Buffer.concat(chunks).toString();
 
-            let bodyToLog;
+      let bodyToLog;
 
-            try {
-                bodyToLog = JSON.parse(body);
-            } catch (e) {
-                bodyToLog = body;
-            }
+      try {
+        bodyToLog = JSON.parse(body);
+      } catch (e) {
+        bodyToLog = body;
+      }
 
-            this.loggerService.info('Made the response', {
-                extra: {
-                    response: {
-                        statusCode: res.statusCode,
-                        headers: res.getHeaders(),
-                        body: bodyToLog
-                    }
-                }
-            });
-        });
+      this.loggerService.info('Made the response', {
+        extra: {
+          response: {
+            statusCode: res.statusCode,
+            headers: res.getHeaders(),
+            body: bodyToLog
+          }
+        }
+      });
+    });
 
-        res.on('close', () => {
-            this.loggerService.warning('The underlying connection was terminated');
-        });
+    res.on('close', () => {
+      this.loggerService.warning('The underlying connection was terminated');
+    });
 
-        next();
-    }
+    next();
+  }
 }

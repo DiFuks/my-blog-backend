@@ -11,19 +11,19 @@ import { ErrorsHandlerService } from '@services/errorsHandler/ErrorsHandlerServi
 import { passport } from '@passport/passport';
 
 export const initializeApplicationMiddlewares = (app: Application) => {
-    app.use(bodyParser.json());
-    app.use(express.json());
-    app.use(cors({
-        origin: [process.env.BLOG_URL, process.env.ADMIN_URL],
-        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
-        credentials: true
-    }));
-    app.use(passport.initialize())
+  app.use(bodyParser.json());
+  app.use(express.json());
+  app.use(cors({
+    origin: [process.env.BLOG_URL, process.env.ADMIN_URL],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    credentials: true
+  }));
+  app.use(passport.initialize())
 };
 
 export const initializeApplicationErrorMiddlewares = (app: Application, container: Container) => {
-    const errorsHandlerService = container.get<ErrorsHandlerService>(typesServices.ErrorsHandlerService);
+  const errorsHandlerService = container.get<ErrorsHandlerService>(typesServices.ErrorsHandlerService);
 
-    app.use((req: Request, res: Response, next: NextFunction) => next(createError(httpStatusCodes.NOT_FOUND)));
-    app.use((err: Error, req: Request, res: Response, next: NextFunction) => errorsHandlerService.handle(err, req, res));
+  app.use((req: Request, res: Response, next: NextFunction) => next(createError(httpStatusCodes.NOT_FOUND)));
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => errorsHandlerService.handle(err, req, res));
 };

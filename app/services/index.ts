@@ -7,3 +7,4 @@ import './login';
 import './encryption';
 import './mqMessage';
 import './responseLogger';
+import './socket';
