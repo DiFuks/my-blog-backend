@@ -2,19 +2,22 @@ import { provide } from 'inversify-binding-decorators';
 import { inject } from 'inversify';
 
 import { typesServices } from '@di/typesServices';
-import { Processor as BotRequestCallbackProcessor } from '@services/mqMessage/botRequestCallback/Processor';
+import { DataProcessorResolver } from '@services/mqMessage/DataProcessorResolver';
+import { BaseDto } from '@services/mqMessage/BaseDto';
 
 @provide(typesServices.MqMessageProcessor)
 export class Processor {
-    private readonly botRequestCallbackProcessor: BotRequestCallbackProcessor;
+    private readonly dataProcessorResolver: DataProcessorResolver;
 
     constructor(
-        @inject(typesServices.MqMessageBotRequestCallbackProcessor) botRequestCallbackProcessor: BotRequestCallbackProcessor
+        @inject(typesServices.MqMessageDataProcessorResolver) dataProcessorResolver: DataProcessorResolver
     ) {
-        this.botRequestCallbackProcessor = botRequestCallbackProcessor;
+        this.dataProcessorResolver = dataProcessorResolver;
     }
 
-    async process(data: any): Promise<void> {
-        await this.botRequestCallbackProcessor.process(data);
+    async process(data: BaseDto): Promise<void> {
+        const processor = this.dataProcessorResolver.resolve(data.Type);
+
+        await processor.process(data.Data);
     }
 }

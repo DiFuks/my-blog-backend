@@ -33,6 +33,7 @@ export const typesServices = {
   JwtPayloadFactory: Symbol.for('JwtPayloadFactory'),
 
   MqMessageProcessor: Symbol.for('MqMessageProcessor'),
+  MqMessageDataProcessorResolver: Symbol.for('MqMessageDataProcessorResolver'),
   MqMessageBotRequestCallbackProcessor: Symbol.for('MqMessageBotRequestCallbackProcessor'),
 
   ChatSenderService:  Symbol.for('ChatSenderService'),
