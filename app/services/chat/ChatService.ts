@@ -16,9 +16,19 @@ export class ChatService {
     return chatMessages ? chatMessages.messages : [];
   }
 
-  public generateId(): IChatId {
+  public async generateId(): Promise<IChatId> {
+    const id = uuid();
+
+    const chatRepository = getRepository(ChatMessages);
+
+    const chat = new ChatMessages();
+
+    chat.id = id;
+
+    await chatRepository.save(chat);
+
     return {
-      id: uuid(),
+      id: id,
     };
   }
 }
