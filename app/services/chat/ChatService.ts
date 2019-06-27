@@ -11,9 +11,13 @@ export class ChatService {
   public async getMessagesById(id: string): Promise<Array<IMessage>> {
     const chatRepository = getRepository(ChatMessages);
 
-    const chatMessages = await chatRepository.findOne(id);
+    const chatMessages = await chatRepository.findOne(id) || new ChatMessages();
 
-    return chatMessages ? chatMessages.messages : [];
+    chatMessages.id = id;
+
+    await chatRepository.save(chatMessages);
+
+    return chatMessages.messages;
   }
 
   public async generateId(): Promise<IChatId> {

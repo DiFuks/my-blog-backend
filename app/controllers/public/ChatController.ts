@@ -40,7 +40,7 @@ class ChatController extends BaseHttpController {
 
   @httpGet(ChatRoutes.GET_ID, typesMiddlewares.RequestLogger)
   public async getId() {
-    return this.json(this.chatService.generateId());
+    return this.json(await this.chatService.generateId());
   }
 
   @httpGet(ChatRoutes.GET_MESSAGES, typesMiddlewares.RequestLogger)
