@@ -19,10 +19,9 @@ export const typesServices = {
   ErrorsHandlerUnhandledRemoteError: Symbol.for('ErrorsHandlerUnhandledRemoteError'),
   ErrorsHandlerDefaultUnhandledRemoteError: Symbol.for('ErrorsHandlerDefaultUnhandledRemoteError'),
 
-
-  PostInfoDtoFactory: Symbol.for('PostInfoDtoFactory'),
-  PostDetailDtoFactory: Symbol.for('PostDetailDtoFactory'),
+  PostDtoFactory: Symbol.for('PostDtoFactory'),
   PostService: Symbol.for('PostService'),
+  CategoryDtoFactory: Symbol.for('CategoryDtoFactory'),
 
   LoginService: Symbol.for('LoginService'),
 

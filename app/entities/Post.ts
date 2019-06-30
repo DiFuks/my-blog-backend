@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 
 import { PostTypes } from '@enum/PostTypes';
+import { Category } from '@entities/Category';
 
 export type PostContent = Array<{
   'type': PostTypes
@@ -22,7 +23,7 @@ export class Post {
     type: 'varchar',
     length: 255,
   })
-  menuTitle: string;
+  description: string;
 
   @Column({
     type: 'json',
@@ -36,13 +37,18 @@ export class Post {
   })
   url: string;
 
+  @ManyToOne(() => Category, category => category.posts, {
+    onDelete: 'CASCADE'
+  })
+  category: Category;
+
   @CreateDateColumn({
-    type: 'time with time zone',
+    type: 'timestamp with time zone',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    type: 'time with time zone',
+    type: 'timestamp with time zone',
   })
   updatedAt: Date;
 }

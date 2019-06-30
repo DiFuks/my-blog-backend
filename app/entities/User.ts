@@ -19,12 +19,12 @@ export class User {
   password: string;
 
   @CreateDateColumn({
-    type: 'time with time zone'
+    type: 'timestamp with time zone'
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    type: 'time with time zone'
+    type: 'timestamp with time zone'
   })
   updatedAt: Date;
 }

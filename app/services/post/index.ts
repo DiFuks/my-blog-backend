@@ -1,2 +1,2 @@
-import './PostInfoDtoFactory';
+import './PostDtoFactory';
 import './PostService';

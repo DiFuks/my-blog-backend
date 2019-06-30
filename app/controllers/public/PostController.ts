@@ -7,20 +7,45 @@ import { typesServices } from '@di/typesServices';
 
 export const enum PostRoutes {
   ROOT = '/public/post',
-  LIST = '/list',
+  LIST = '/listByCategory/:category',
+  SHORT_LIST = '/shortList',
+  CATEGORIES = '/categories',
   DETAIL = '/detail/:url'
 }
 
 @controller(PostRoutes.ROOT)
 class PostController extends BaseHttpController {
-  @inject(typesServices.PostService)
   private readonly postService: PostService;
 
+  constructor(
+      @inject(typesServices.PostService) postService: PostService,
+  ) {
+    super();
+
+    this.postService = postService;
+  }
+
   @httpGet(PostRoutes.LIST, typesMiddlewares.RequestLogger)
-  public async getList() {
-    const postInfo = await this.postService.getList();
+  public async getListByCategory(
+      @requestParam('category') url
+  ) {
+    const postInfo = await this.postService.getListByCategory(url);
 
     return this.json(postInfo);
+  }
+
+  @httpGet(PostRoutes.SHORT_LIST, typesMiddlewares.RequestLogger)
+  public async getShortList() {
+    const postInfo = await this.postService.getShortList();
+
+    return this.json(postInfo);
+  }
+
+  @httpGet(PostRoutes.CATEGORIES, typesMiddlewares.RequestLogger)
+  public async getCategoryList() {
+    const categoryInfo = await this.postService.getCategories();
+
+    return this.json(categoryInfo);
   }
 
   @httpGet(PostRoutes.DETAIL, typesMiddlewares.RequestLogger)
