@@ -14,7 +14,7 @@ export const enum ChatRoutes {
   GET_MESSAGES = '/getMessages/:id',
 }
 
-@controller(ChatRoutes.ROOT)
+@controller(ChatRoutes.ROOT, typesMiddlewares.RequestLogger)
 class ChatController extends BaseHttpController {
   private readonly chatSenderService: ChatSenderService;
   private readonly chatService: ChatService;
@@ -29,7 +29,7 @@ class ChatController extends BaseHttpController {
     this.chatService = chatService;
   }
 
-  @httpPost(ChatRoutes.SEND, typesMiddlewares.RequestLogger)
+  @httpPost(ChatRoutes.SEND)
   public async send(
     @requestBody() requestBody: IChatRequest,
   ) {
@@ -38,12 +38,12 @@ class ChatController extends BaseHttpController {
     return this.json(messages);
   }
 
-  @httpGet(ChatRoutes.GET_ID, typesMiddlewares.RequestLogger)
+  @httpGet(ChatRoutes.GET_ID)
   public async getId() {
     return this.json(await this.chatService.generateId());
   }
 
-  @httpGet(ChatRoutes.GET_MESSAGES, typesMiddlewares.RequestLogger)
+  @httpGet(ChatRoutes.GET_MESSAGES)
   public async getMessages(
     @requestParam('id') id: string,
   ) {

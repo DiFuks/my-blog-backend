@@ -12,12 +12,12 @@ export const enum PostRoutes {
   LIST = '/list',
 }
 
-@controller(PostRoutes.ROOT, passport.authenticate([AuthTypes.JWT], {session: false}))
+@controller(PostRoutes.ROOT, passport.authenticate([AuthTypes.JWT], {session: false}), typesMiddlewares.RequestLogger)
 class PostCrudController extends BaseHttpController {
   @inject(typesServices.PostService)
   private readonly postService: PostService;
 
-  @httpGet(PostRoutes.LIST, typesMiddlewares.RequestLogger)
+  @httpGet(PostRoutes.LIST)
   public async getList() {
     const posts = await this.postService.getAll();
 

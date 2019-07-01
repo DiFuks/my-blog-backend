@@ -11,7 +11,7 @@ export const enum AccountRoutes {
   LOGIN = '/login'
 }
 
-@controller(AccountRoutes.ROOT)
+@controller(AccountRoutes.ROOT, typesMiddlewares.RequestLogger)
 class AccountController extends BaseHttpController {
   @inject(typesServices.LoginService)
   private readonly loginService: LoginService;
@@ -19,7 +19,7 @@ class AccountController extends BaseHttpController {
   @inject(typesServices.JwtDTOFactory)
   private readonly jwtDTOFactory: JwtDTOFactory;
 
-  @httpPost(AccountRoutes.LOGIN, typesMiddlewares.RequestLogger)
+  @httpPost(AccountRoutes.LOGIN)
   public async login(
     @requestBody() requestBody
   ) {

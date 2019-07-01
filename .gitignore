@@ -3,3 +3,4 @@
 .env
 /app/var
 /docker-data
+/translate-file.json

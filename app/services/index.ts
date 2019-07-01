@@ -8,3 +8,4 @@ import './encryption';
 import './mqMessage';
 import './responseLogger';
 import './socket';
+import './translate';

@@ -13,7 +13,7 @@ export const enum PostRoutes {
   DETAIL = '/detail/:url'
 }
 
-@controller(PostRoutes.ROOT)
+@controller(PostRoutes.ROOT, typesMiddlewares.RequestLogger, typesMiddlewares.LocaleMiddlaware)
 class PostController extends BaseHttpController {
   private readonly postService: PostService;
 
@@ -25,7 +25,7 @@ class PostController extends BaseHttpController {
     this.postService = postService;
   }
 
-  @httpGet(PostRoutes.LIST, typesMiddlewares.RequestLogger)
+  @httpGet(PostRoutes.LIST)
   public async getListByCategory(
       @requestParam('category') url
   ) {
@@ -34,21 +34,21 @@ class PostController extends BaseHttpController {
     return this.json(postInfo);
   }
 
-  @httpGet(PostRoutes.SHORT_LIST, typesMiddlewares.RequestLogger)
+  @httpGet(PostRoutes.SHORT_LIST)
   public async getShortList() {
     const postInfo = await this.postService.getShortList();
 
     return this.json(postInfo);
   }
 
-  @httpGet(PostRoutes.CATEGORIES, typesMiddlewares.RequestLogger)
+  @httpGet(PostRoutes.CATEGORIES)
   public async getCategoryList() {
     const categoryInfo = await this.postService.getCategories();
 
     return this.json(categoryInfo);
   }
 
-  @httpGet(PostRoutes.DETAIL, typesMiddlewares.RequestLogger)
+  @httpGet(PostRoutes.DETAIL)
   public async get(
     @requestParam('url') url
   ) {

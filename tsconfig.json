@@ -22,7 +22,8 @@
       "@repository/*": ["repository/*"],
       "@rabbitmq/*": ["rabbitmq/*"],
       "@rest/*": ["rest/*"],
-      "@io/*": ["io/*"]
+      "@io/*": ["io/*"],
+      "@translate/*": ["translate/*"]
     }
   },
   "exclude": [

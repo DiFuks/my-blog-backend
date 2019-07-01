@@ -13,6 +13,8 @@ import { RedisCache } from '@services/cache/RedisCache';
 import { Category } from '@entities/Category';
 import { CategoryDtoFactory } from '@services/post/CategoryDtoFactory';
 import { CategoryInfo } from '@dto/reponse/CategoryInfo';
+import { Locales } from '@enum/Locales';
+import { typesConstants } from '@di/typesConstants';
 
 @provide(typesServices.PostService)
 export class PostService {
@@ -20,21 +22,24 @@ export class PostService {
   private readonly systemErrorFactory: SystemErrorFactory;
   private readonly redisCache: RedisCache;
   private readonly categoryDtoFactory: CategoryDtoFactory;
+  private readonly locale: Locales;
 
   constructor(
     @inject(typesServices.PostDtoFactory) postDtoFactory: PostDtoFactory,
     @inject(typesServices.SystemErrorFactory) systemErrorFactory: SystemErrorFactory,
     @inject(typesServices.RedisCache) redisCache: RedisCache,
     @inject(typesServices.CategoryDtoFactory) categoryDtoFactory: CategoryDtoFactory,
+    @inject(typesConstants.Locale) locale: Locales,
   ) {
     this.postDtoFactory = postDtoFactory;
     this.systemErrorFactory = systemErrorFactory;
     this.redisCache = redisCache;
     this.categoryDtoFactory = categoryDtoFactory;
+    this.locale = locale;
   }
 
   public getListByCategory(categoryUrl: string): Promise<Array<PostInfo>> {
-    const cacheKey = `post-list-${categoryUrl}`;
+    const cacheKey = `post-list-${categoryUrl}-${this.locale}`;
 
     return this.redisCache.resolve<Array<PostInfo>>(cacheKey, async () => {
       const categoryRepository = getRepository(Category);
@@ -55,12 +60,14 @@ export class PostService {
         }
       });
 
-      return posts.map<PostInfo>(post => this.postDtoFactory.createPreview(post));
+      return Promise.all(
+        posts.map<Promise<PostInfo>>(async post => await this.postDtoFactory.createPreview(post))
+      );
     })
   }
 
   public getShortList(): Promise<Array<PostInfo>> {
-    const cacheKey = 'post-short-list';
+    const cacheKey = `post-short-list-${this.locale}`;
 
     return this.redisCache.resolve<Array<PostInfo>>(cacheKey, async () => {
       const postRepository = getRepository(Post);
@@ -73,24 +80,28 @@ export class PostService {
         take: 6,
       });
 
-      return posts.map<PostInfo>(post => this.postDtoFactory.createPreview(post));
+      return Promise.all(
+        posts.map<Promise<PostInfo>>(async post => await this.postDtoFactory.createPreview(post))
+      );
     })
   }
 
-  public getCategories(): Promise<Array<CategoryInfo>> {
-    const cacheKey = 'categories';
+  public async getCategories(): Promise<Array<CategoryInfo>> {
+    const cacheKey = `categories-${this.locale}`;
 
     return this.redisCache.resolve<Array<CategoryInfo>>(cacheKey, async () => {
       const categoryRepository = getRepository(Category);
 
       const categories = await categoryRepository.find();
 
-      return categories.map<CategoryInfo>(category => this.categoryDtoFactory.createPreview(category));
+      return Promise.all(categories.map<Promise<CategoryInfo>>(async category => {
+        return await this.categoryDtoFactory.createPreview(category)
+      }));
     })
   }
 
   public async getByUrl(url: string): Promise<PostDetail> {
-    const cacheKey = `post-detail-${url}`;
+    const cacheKey = `post-detail-${url}-${this.locale}`;
 
     const post = await this.redisCache.resolve<PostDetail | null>(cacheKey, async () => {
       const postRepository = getRepository(Post);
@@ -103,7 +114,7 @@ export class PostService {
         return null;
       }
 
-      return this.postDtoFactory.createDetail(post);
+      return await this.postDtoFactory.createDetail(post);
     });
 
     if (!post) {

@@ -7,6 +7,7 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "@google-cloud/translate": "^4.1.0",
     "@types/amqp-connection-manager": "^2.0.4",
     "@types/amqplib": "^0.5.12",
     "@types/argon2": "^0.15.0",

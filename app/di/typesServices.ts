@@ -40,7 +40,8 @@ export const typesServices = {
 
   AxiosResponseLogger: Symbol.for('AxiosResponseLogger'),
 
-
   SocketUserConnectionManager: Symbol.for('SocketUserConnectionManager'),
   SocketMessageSender: Symbol.for('SocketMessageSender'),
+
+  TranslateService: Symbol.for('TranslateService'),
 };

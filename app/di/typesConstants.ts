@@ -8,4 +8,8 @@ export const typesConstants = {
   JwtSecretKey: Symbol.for('JwtSecretKey'),
   BotUrl: Symbol.for('BotUrl'),
   Socket: Symbol.for('Socket'),
+  TranslateKeyFile: Symbol.for('TranslateKeyFile'),
+  TranslateProjectId: Symbol.for('TranslateProjectId'),
+  Locale: Symbol.for('Locale'),
+  DefaultLocale: Symbol.for('DefaultLocale'),
 };
