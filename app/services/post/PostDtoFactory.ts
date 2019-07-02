@@ -21,14 +21,14 @@ export class PostDtoFactory {
   public async createDetail(post: Post): Promise<PostDetail> {
     const postDetailDto = new PostDetail();
 
-    await Promise.all(post.content.map(async item => {
+    postDetailDto.content = await Promise.all(post.content.map(async item => {
       if(item.type === PostTypes.TEXT) {
-        postDetailDto.content.push({
+        return {
           type: item.type,
           content: await this.translate.translate(item.content),
-        });
+        };
       } else {
-        postDetailDto.content.push(item);
+        return item;
       }
     }));
 
