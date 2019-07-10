@@ -75,10 +75,6 @@ export class RequestLogger extends BaseMiddleware {
       });
     });
 
-    res.on('close', () => {
-      this.loggerService.warning('The underlying connection was terminated');
-    });
-
     next();
   }
 }
