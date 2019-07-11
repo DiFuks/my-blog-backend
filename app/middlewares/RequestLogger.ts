@@ -6,20 +6,28 @@ import { provide } from 'inversify-binding-decorators';
 import { typesServices } from '@di/typesServices';
 import { LoggerService } from '@services/logger/LoggerService';
 import { typesMiddlewares } from '@di/typesMiddlewares';
+import { TokenManager } from '@services/userSession/TokenManager';
+
+export const LoggerSessionTokenName = 'x-session-token';
 
 @provide(typesMiddlewares.RequestLogger)
 export class RequestLogger extends BaseMiddleware {
   private loggerService: LoggerService;
+  private tokenManager: TokenManager;
 
   constructor(
-    @inject(typesServices.LoggerService) loggerService: LoggerService
+    @inject(typesServices.LoggerService) loggerService: LoggerService,
+    @inject(typesServices.UserSessionTokenManager) tokenManager: TokenManager,
   ) {
     super();
 
     this.loggerService = loggerService;
+    this.tokenManager = tokenManager;
   }
 
   handler(req: Request, res: Response, next: NextFunction): void {
+    this.tokenManager.set(req.header(LoggerSessionTokenName) || '');
+
     this.loggerService.info('New request has come', {
       extra: {
         request: {

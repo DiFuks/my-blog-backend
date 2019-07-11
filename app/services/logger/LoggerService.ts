@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { typesServices } from '@di/typesServices';
 import { SessionIdService } from '@services/session/SessionIdService';
 import { typesConstants } from '@di/typesConstants';
+import { TokenManager } from '@services/userSession/TokenManager';
 
 export const enum LoggerChannelEnum {
   APPLICATION = 'APP',
@@ -40,15 +41,18 @@ export interface ILoggerContext {
 export class LoggerService {
   private readonly logger: winston.Logger;
   private readonly sessionIdService: SessionIdService;
+  private readonly tokenManager: TokenManager;
 
   private defaultChannel = LoggerChannelEnum.APPLICATION;
 
   constructor(
     @inject(typesConstants.WinstonLogger) logger: winston.Logger,
-    @inject(typesServices.SessionIdService) sessionIdService: SessionIdService
+    @inject(typesServices.SessionIdService) sessionIdService: SessionIdService,
+    @inject(typesServices.UserSessionTokenManager) tokenManager: TokenManager,
   ) {
     this.logger = logger;
     this.sessionIdService = sessionIdService;
+    this.tokenManager = tokenManager;
   }
 
   public getDefaultChannel(): LoggerChannelEnum {
@@ -128,7 +132,8 @@ export class LoggerService {
       channel: options.channel || this.getDefaultChannel(),
       extra: {
         ...options.extra,
-        session_logger_id: this.sessionIdService.getId()
+        session_logger_id: this.sessionIdService.getId(),
+        user_session_token_id: this.tokenManager.get(),
       }
     };
 

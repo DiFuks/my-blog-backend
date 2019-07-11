@@ -24,7 +24,7 @@ export class LocaleMiddlaware extends BaseMiddleware {
     res: express.Response,
     next: express.NextFunction
   ) {
-    const locale = req.query.locale as Locales || this.defaultLocale;
+    const locale = req.header('Locale') as Locales || this.defaultLocale;
 
     this.bind<Locales>(typesConstants.Locale).toConstantValue(locale);
 

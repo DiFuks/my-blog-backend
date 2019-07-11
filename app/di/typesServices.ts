@@ -44,4 +44,6 @@ export const typesServices = {
   SocketMessageSender: Symbol.for('SocketMessageSender'),
 
   TranslateService: Symbol.for('TranslateService'),
+
+  UserSessionTokenManager: Symbol.for('UserSessionTokenManager'),
 };
