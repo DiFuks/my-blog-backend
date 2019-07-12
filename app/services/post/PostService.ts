@@ -48,6 +48,10 @@ export class PostService {
         url: categoryUrl,
       });
 
+      if (!category) {
+        throw this.systemErrorFactory.create(SystemErrors.POST_CATEGORY_NOT_FOUND);
+      }
+
       const postRepository = getRepository(Post);
 
       const posts = await postRepository.find({
