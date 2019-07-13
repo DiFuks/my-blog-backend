@@ -32,7 +32,10 @@ export class PostDtoFactory {
       }
     }));
 
-    postDetailDto.title = await this.translate.translate(post.title);
+    [postDetailDto.title, postDetailDto.description] = await this.translate.translateArray([
+      post.title,
+      post.description
+    ]);
     postDetailDto.id = post.id;
 
     return postDetailDto;

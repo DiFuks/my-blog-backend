@@ -5,5 +5,7 @@ export class PostDetail {
 
   title: string;
 
+  description: string;
+
   content: PostContent = [];
 }
