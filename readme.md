@@ -7,6 +7,7 @@
 - Язык программирования: [TypeScript](https://www.typescriptlang.org)
 - Синтаксис [ECMAScript2017](https://www.ecma-international.org/ecma-262/8.0/#sec-async-function-definitions)
 - Паттерны: [SOLID](https://itnext.io/solid-principles-explanation-and-examples-715b975dcad4), [DI](https://en.wikipedia.org/wiki/Dependency_injection)
+- [Docker](https://docs.docker.com/get-started/)
 - [Node.js](https://nodejs.org/en/docs/)
 - [PostgreSQL](https://www.postgresql.org/docs/)
 - [RabbitMQ](https://www.rabbitmq.com/getstarted.html)
