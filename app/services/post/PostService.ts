@@ -131,6 +131,8 @@ export class PostService {
   public getAll(): Promise<Array<Post>> {
     const postRepository = getRepository(Post);
 
-    return postRepository.find();
+    return postRepository.find({
+      relations: ['category'],
+    });
   }
 }

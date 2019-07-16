@@ -21,7 +21,9 @@ export const typesServices = {
 
   PostDtoFactory: Symbol.for('PostDtoFactory'),
   PostService: Symbol.for('PostService'),
+  PostAdminService: Symbol.for('PostAdminService'),
   CategoryDtoFactory: Symbol.for('CategoryDtoFactory'),
+  CategoryAdminService: Symbol.for('CategoryAdminService'),
 
   LoginService: Symbol.for('LoginService'),
 

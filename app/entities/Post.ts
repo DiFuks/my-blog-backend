@@ -38,7 +38,8 @@ export class Post {
   url: string;
 
   @ManyToOne(() => Category, category => category.posts, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    nullable: false,
   })
   category: Category;
 
