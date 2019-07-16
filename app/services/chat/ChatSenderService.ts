@@ -25,6 +25,8 @@ export class ChatSenderService {
   }
 
   public async sendToTelegram(chatRequest: IChatRequest): Promise<Array<IMessage>> {
+    await this.botRestWorker.send(chatRequest);
+
     const chatRepository = getRepository(ChatMessages);
 
     const chatMessages = await chatRepository.findOne(chatRequest.id) || new ChatMessages();
@@ -36,10 +38,7 @@ export class ChatSenderService {
     });
     chatMessages.id = chatRequest.id;
 
-    await Promise.all([
-      chatRepository.save(chatMessages),
-      this.botRestWorker.send(chatRequest),
-    ]);
+    await chatRepository.save(chatMessages);
 
     return chatMessages.messages;
   }
@@ -55,12 +54,11 @@ export class ChatSenderService {
       type: ChatMessageTypes.ME,
     });
 
-    await Promise.all([
-      this.socketMessageSender.sendToChat(chatMessages.id, [{
-        room: SocketRooms.BOT_REQUEST_CALLBACK,
-        data: null
-      }]),
-      chatRepository.save(chatMessages),
-    ]);
+    await this.socketMessageSender.sendToChat(chatMessages.id, [{
+      room: SocketRooms.BOT_REQUEST_CALLBACK,
+      data: null
+    }]);
+
+    await chatRepository.save(chatMessages);
   }
 }
