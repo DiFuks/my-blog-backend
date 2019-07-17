@@ -21,7 +21,7 @@
 
 ## Список дополнительных технологий
 
-- [@google-cloud/translate](https://cloud.google.com/translate/docs/)
+- [Google Translate Api](https://cloud.google.com/translate/docs/)
 - [Amqp connection manager](https://github.com/benbria/node-amqp-connection-manager)
 - [Amqp lib](https://github.com/squaremo/amqp.node)
 - [Argon 2](https://en.wikipedia.org/wiki/Argon2)
@@ -75,7 +75,7 @@
 
 3. Установить npm зависимости
     ```bash
-    prod-yarn-install
+    make prod-yarn-install
     ```
     
 4. Запустить prod server
