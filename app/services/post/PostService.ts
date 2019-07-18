@@ -15,6 +15,7 @@ import { CategoryDtoFactory } from '@services/post/CategoryDtoFactory';
 import { CategoryInfo } from '@dto/reponse/CategoryInfo';
 import { Locales } from '@enum/Locales';
 import { typesConstants } from '@di/typesConstants';
+import { CacheKeys } from '@enum/CacheKeys';
 
 @provide(typesServices.PostService)
 export class PostService {
@@ -39,7 +40,7 @@ export class PostService {
   }
 
   public getListByCategory(categoryUrl: string): Promise<Array<PostInfo>> {
-    const cacheKey = `post-list-${categoryUrl}-${this.locale}`;
+    const cacheKey = `${CacheKeys.POST_LIST}${categoryUrl}-${this.locale}`;
 
     return this.redisCache.resolve<Array<PostInfo>>(cacheKey, async () => {
       const categoryRepository = getRepository(Category);
@@ -71,7 +72,7 @@ export class PostService {
   }
 
   public getShortList(): Promise<Array<PostInfo>> {
-    const cacheKey = `post-short-list-${this.locale}`;
+    const cacheKey = `${CacheKeys.POST_SHORT_LIST}${this.locale}`;
 
     return this.redisCache.resolve<Array<PostInfo>>(cacheKey, async () => {
       const postRepository = getRepository(Post);
@@ -91,7 +92,7 @@ export class PostService {
   }
 
   public async getCategories(): Promise<Array<CategoryInfo>> {
-    const cacheKey = `categories-${this.locale}`;
+    const cacheKey = `${CacheKeys.CATEGORIES}${this.locale}`;
 
     return this.redisCache.resolve<Array<CategoryInfo>>(cacheKey, async () => {
       const categoryRepository = getRepository(Category);
@@ -105,7 +106,7 @@ export class PostService {
   }
 
   public async getByUrl(url: string): Promise<PostDetail> {
-    const cacheKey = `post-detail-${url}-${this.locale}`;
+    const cacheKey = `${CacheKeys.POST_DETAIL}${url}-${this.locale}`;
 
     const post = await this.redisCache.resolve<PostDetail | null>(cacheKey, async () => {
       const postRepository = getRepository(Post);
@@ -126,13 +127,5 @@ export class PostService {
     }
 
     return post;
-  }
-
-  public getAll(): Promise<Array<Post>> {
-    const postRepository = getRepository(Post);
-
-    return postRepository.find({
-      relations: ['category'],
-    });
   }
 }
