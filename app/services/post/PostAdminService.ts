@@ -44,7 +44,9 @@ export class PostAdminService {
   public async delete(id: string): Promise<void> {
     const postRepository = getRepository(Post);
 
-    const post = await postRepository.findOne(id);
+    const post = await postRepository.findOne(id, {
+      relations: ['category'],
+    });
 
     await this.deleteCache(post);
 
@@ -53,19 +55,27 @@ export class PostAdminService {
     });
   }
 
+  public async changeActive(id: string, isActive: boolean): Promise<void> {
+    const postRepository = getRepository(Post);
+
+    const post = await postRepository.findOne(id, {
+      relations: ['category'],
+    });
+
+    await this.deleteCache(post);
+
+    post.isActive = isActive;
+
+    await postRepository.save(post);
+  }
+
   private async deleteCache(post: Post) {
     await Promise.all(Object.values(Locales).map(async locale => {
       this.redisCache.get().del(`${CacheKeys.POST_DETAIL}${post.url}-${locale}`);
 
       this.redisCache.get().del(`${CacheKeys.POST_LIST}${post.category.url}-${locale}`);
 
-      const shortList = await this.postService.getShortList();
-
-      shortList.forEach(item => {
-        if (item.url === post.url) {
-          this.redisCache.get().del(`${CacheKeys.POST_SHORT_LIST}${locale}`);
-        }
-      })
+      this.redisCache.get().del(`${CacheKeys.POST_SHORT_LIST}${locale}`);
     }));
   }
 }

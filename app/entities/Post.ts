@@ -37,6 +37,12 @@ export class Post {
   })
   url: string;
 
+  @Column({
+    type: 'boolean',
+    nullable: true,
+  })
+  isActive: boolean;
+
   @ManyToOne(() => Category, category => category.posts, {
     onDelete: 'CASCADE',
     nullable: false,

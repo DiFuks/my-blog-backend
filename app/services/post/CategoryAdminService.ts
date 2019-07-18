@@ -50,6 +50,8 @@ export class CategoryAdminService {
 
   private async delCache(category: Category) {
     await Promise.all(Object.values(Locales).map(async locale => {
+      this.redisCache.get().del(`${CacheKeys.CATEGORIES}${locale}`);
+
       this.redisCache.get().del(`${CacheKeys.POST_SHORT_LIST}${locale}`);
 
       this.redisCache.get().del(`${CacheKeys.POST_LIST}${category.url}-${locale}`);

@@ -5,7 +5,7 @@ import {
   requestBody,
   httpDelete,
   queryParam,
-  httpPut,
+  httpPut, httpPost,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 
@@ -15,12 +15,14 @@ import { typesServices } from '@di/typesServices';
 import { passport } from '@passport/passport';
 import { AuthTypes } from '@enum/AuthTypes';
 import { Post } from '@entities/Post';
+import { IChangeActive } from '@dto/request/IChangeActive';
 
 export const enum PostRoutes {
   ROOT = '/admin/post',
   LIST = '/list',
   SAVE = '/save',
   DELETE = '/delete',
+  CHANGE_ACTIVE = '/changeActive',
 }
 
 @controller(PostRoutes.ROOT, passport.authenticate([AuthTypes.JWT], {session: false}), typesMiddlewares.RequestLogger)
@@ -49,6 +51,15 @@ class PostCrudController extends BaseHttpController {
     @queryParam('id') id: string,
   ) {
     await this.postAdminService.delete(id);
+
+    return this.json({});
+  }
+
+  @httpPost(PostRoutes.CHANGE_ACTIVE)
+  public async changeActive(
+    @requestBody() body: IChangeActive,
+  ) {
+    await this.postAdminService.changeActive(body.id, body.isActive);
 
     return this.json({});
   }

@@ -62,6 +62,7 @@ export class PostService {
         },
         where: {
           category: category,
+          isActive: true,
         }
       });
 
@@ -83,6 +84,9 @@ export class PostService {
           createdAt: 'DESC',
         },
         take: 6,
+        where: {
+          isActive: true,
+        }
       });
 
       return Promise.all(
@@ -113,6 +117,7 @@ export class PostService {
 
       const post = await postRepository.findOne({
         url: url,
+        isActive: true,
       });
 
       if (!post) {
