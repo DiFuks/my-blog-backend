@@ -11,7 +11,7 @@ import { ErrorsHandlerService } from '@services/errorsHandler/ErrorsHandlerServi
 import { passport } from '@passport/passport';
 
 export const initializeApplicationMiddlewares = (app: Application) => {
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ limit: '300mb' }));
   app.use(express.json());
   app.use(cors({
     origin: [process.env.BLOG_URL, process.env.ADMIN_URL],
