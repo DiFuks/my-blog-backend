@@ -61,7 +61,7 @@
 
 6. Синхронизировать схему БД
     ```bash
-    yarn typeorm:schema: sync
+    yarn typeorm schema:sync
     ```
 
 ## Разворачивание проекта для работы
