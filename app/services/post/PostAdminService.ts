@@ -36,9 +36,14 @@ export class PostAdminService {
   public async save(post: Post): Promise<void> {
     const postRepository = getRepository(Post);
 
-    await this.deleteCache(post);
+    const postBeforeSave = await postRepository.findOne(post.id, {
+      relations: ['category'],
+    });
 
-    await postRepository.save(post);
+    await Promise.all([
+      this.deleteCache(postBeforeSave),
+      postRepository.save(post),
+    ]);
   }
 
   public async delete(id: string): Promise<void> {
