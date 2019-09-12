@@ -35,8 +35,6 @@ services:
     image: redis:5.0-alpine
     restart: always
     command: redis-server --appendonly yes
-    ports:
-    - 6379:6379
     ulimits:
       nofile:
         soft: 65535
