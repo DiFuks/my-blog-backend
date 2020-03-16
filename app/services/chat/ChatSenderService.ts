@@ -54,11 +54,11 @@ export class ChatSenderService {
       type: ChatMessageTypes.ME,
     });
 
+    await chatRepository.save(chatMessages);
+
     await this.socketMessageSender.sendToChat(chatMessages.id, [{
       room: SocketRooms.BOT_REQUEST_CALLBACK,
       data: null
     }]);
-
-    await chatRepository.save(chatMessages);
   }
 }
