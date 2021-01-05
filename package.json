@@ -23,7 +23,7 @@
     "amqp-connection-manager": "^2.3.2",
     "amqplib": "^0.5.3",
     "argon2": "^0.21.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "delay": "^4.3.0",
     "dotenv": "^7.0.0",
